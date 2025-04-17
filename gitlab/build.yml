@@ -120,6 +120,8 @@ build_and_push_esplora_latest:
   stage: build
   only:
     - master
+  except:
+    - triggers
   needs:
     - build_esplora_latest_amd64
     - build_esplora_latest_arm64
