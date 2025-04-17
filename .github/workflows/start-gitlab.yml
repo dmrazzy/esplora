@@ -44,12 +44,12 @@ jobs:
           fi
 
           echo "Triggering GitLab pipeline for SHA: ${GITHUB_PR_SHA}"
-          curl --fail --request POST \
+          curl --fail --silent --show-error --request POST \
             --form token="${GL_TRIGGER_TOKEN}" \
             --form ref="${GL_TRIGGER_REF}" \
             --form "variables[GITHUB_PR_SHA]=${GITHUB_PR_SHA}" \
             --form "variables[GITHUB_PR_REF]=${GITHUB_PR_REF}" \
             --form "variables[GITHUB_REPO]=${GITHUB_REPO}" \
             --form "variables[GITHUB_TOKEN]=${GITHUB_TOKEN}" \
-            "${GL_TRIGGER_URL}"
+            "${GL_TRIGGER_URL}" > /dev/null
           echo "GitLab pipeline triggered."

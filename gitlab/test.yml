@@ -9,8 +9,10 @@ report_github_status:
     # 2. The required variables from GitHub Actions are present.
     - if: '$CI_PIPELINE_SOURCE == "trigger" && $GITHUB_PR_SHA && $GITHUB_TOKEN && $GITHUB_REPO && $GITHUB_PR_REF'
   before_script:
+    # Make sure curl and git are available
+    - apk add --no-cache curl git
     # Report "pending" status to GitHub as soon as the job starts
-    - >
+    - |
       echo "Reporting pending status to GitHub commit $GITHUB_PR_SHA"
       curl --fail -s --request POST \
         --url "https://api.github.com/repos/${GITHUB_REPO}/statuses/${GITHUB_PR_SHA}" \
@@ -25,7 +27,7 @@ report_github_status:
         "context": "ci/gitlab/pipeline-status"
       }
       EOF
-    - |
+    - >
       docker buildx create \
       --driver=docker-container \
       --name=buildkit-builder \
