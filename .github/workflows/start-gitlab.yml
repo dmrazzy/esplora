@@ -38,7 +38,7 @@ jobs:
             exit 1
           fi
           # Ensure URL is set
-           if [ -z "$GL_TRIGGER_URL" ]; then
+          if [ -z "$GL_TRIGGER_URL" ]; then
             echo "::error::GL_TRIGGER_URL secret is missing or unavailable!"
             exit 1
           fi

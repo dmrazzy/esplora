@@ -85,6 +85,8 @@ build_esplora_test_arm64:
   stage: build
   only:
     - master
+  except:
+    - triggers
   before_script:
     - docker buildx create
       --driver=docker-container
