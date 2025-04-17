@@ -45,13 +45,15 @@ build_and_push_esplora_base:
     - build_esplora_base_amd64
     - build_esplora_base_arm64
   script:
-    - docker buildx imagetools create \
-      -t ${IMAGE_BASE}:latest \
-      ${IMAGE_BASE}:latest-amd64 \
+    - docker buildx imagetools create
+      -t ${IMAGE_BASE}:latest
+      ${IMAGE_BASE}:latest-amd64
       ${IMAGE_BASE}:latest-arm64
 
 .build_esplora_test:
   stage: build
+  only:
+    - merge_requests
   before_script:
     - docker buildx create
       --driver=docker-container
@@ -120,7 +122,7 @@ build_and_push_esplora_latest:
     - build_esplora_latest_amd64
     - build_esplora_latest_arm64
   script:
-    - docker buildx imagetools create \
-      -t ${IMAGE}:latest \
-      ${IMAGE}:latest-amd64 \
+    - docker buildx imagetools create
+      -t ${IMAGE}:latest
+      ${IMAGE}:latest-amd64
       ${IMAGE}:latest-arm64
